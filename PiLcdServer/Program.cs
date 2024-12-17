@@ -35,6 +35,7 @@ namespace PiLcdServer
             builder.Services.AddSwaggerGen();
 
             builder.Services.AddSingleton<LcdServis>();
+            builder.Services.AddHostedService<RadnikServis>();
 
             var app = builder.Build();
 

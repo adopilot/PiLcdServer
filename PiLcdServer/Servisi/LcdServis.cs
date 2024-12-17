@@ -12,16 +12,24 @@ using System.Device.I2c;
 namespace PiLcdServer.Servisi
 {
     
-    public class LcdServis
+    public class LcdServis 
     {
 
         private readonly AppSettings _appSettings;
+        private readonly ILogger<LcdServis> _logger;
+        
 
-        public LcdServis(IOptions<AppSettings> options)
+        public LcdServis(IOptions<AppSettings> options, ILogger<LcdServis> logger)
         {
             _appSettings = options.Value;
+            _logger = logger;
             
         }
+
+       
+
+
+
         public string BusQuery()
         {
             
