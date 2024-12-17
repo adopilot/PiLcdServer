@@ -1,0 +1,9 @@
+@PiLcdServer_HostAddress = https://localhost:5098
+
+GET {{PiLcdServer_HostAddress}}/weatherforecast/
+Accept: application/json
+
+###
+
+GET {{PiLcdServer_HostAddress}}/weatherforecast/AdoTest/
+Accept:  application/json
