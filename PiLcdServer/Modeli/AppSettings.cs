@@ -6,6 +6,6 @@
         public List<string> UseUrls { get; set; } = new List<string>();
 
         public bool AutoTurnOffDisplayEnabled { get; set; } = true;
-        public int AutoTurnOffDisplayAfter { get; set; } = 10;
+        public int AutoTurnOffDisplayAfterSec { get; set; } = 10;
     }
 }
