@@ -2,8 +2,10 @@
 {
     public class AppSettings
     {
-        public DisplayConfig UlaziDisplay { get; set; } = new DisplayConfig();
-        public DisplayConfig IzalzniDisplay { get; set; } = new DisplayConfig();
+        public string AllowedHosts { get; set; }
         public List<string> UseUrls { get; set; } = new List<string>();
+
+        public bool AutoTurnOffDisplayEnabled { get; set; } = true;
+        public int AutoTurnOffDisplayAfter { get; set; } = 10;
     }
 }

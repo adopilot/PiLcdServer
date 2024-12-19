@@ -31,12 +31,10 @@
             
             var a = new Modeli.PisiModel() { LcdUlazIliIzlaz = "ULAZ", DrugiRed = $"Sati {DateTime.Now.ToString("HH:mm:ss")}", PrviRed=$"Klikono sam x{count}" };
 
-            _lcdServis.PisiNaDisplay(a);
-            a.LcdUlazIliIzlaz = "IZLAZ";
-            _lcdServis.PisiNaDisplay(a);
-
-            _logger.LogInformation(
-                "Timed Hosted Service is working. Count: {Count}", count);
+            //_lcdServis.PisiNaDisplay(a);
+            //a.LcdUlazIliIzlaz = "IZLAZ";
+            //_lcdServis.PisiNaDisplay(a);
+            //_logger.LogInformation("Timed Hosted Service is working. Count: {Count}", count);
         }
 
         public Task StopAsync(CancellationToken stoppingToken)

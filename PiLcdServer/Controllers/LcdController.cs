@@ -16,11 +16,21 @@ namespace PiLcdServer.Controllers
             _lcdServis = lcdServis;
         }
         [HttpGet("AdreseIc2Uredjaja")]
-        public string AdreseIc2Uredjaja() { return _lcdServis.BusQuery(); }
+        public ActionResult AdreseIc2Uredjaja() {
+            var odgovor = _lcdServis.BusQuery();
+            return StatusCode(odgovor?.StatusCode ?? 500, odgovor?.Msg ?? "Interni sex");
+        
+        }
+        [HttpGet("UgasiDisplay")]
+        public ActionResult UgasiDisplay(int intAdresaUredjaja)
+        {
+            var odgovor = _lcdServis.UgasiBacklgiht(intAdresaUredjaja);
+            return StatusCode(odgovor?.StatusCode ?? 500, odgovor?.Msg ?? "Interni sex");
 
+        }
 
         [HttpPost("Pisi")]
-        public ActionResult Pisi(PisiModel model)
+        public ActionResult Pisi(PisiModelRaw model)
         {
             if (model == null)
             {
@@ -32,5 +42,9 @@ namespace PiLcdServer.Controllers
 
             
         }
+        
+        [HttpGet("GetDisplayConfigs")]
+        public ActionResult<List<DisplayConfig>> GetDisplayConfigs() =>_lcdServis.GetDisplayConfigs();
+        
     }
 }

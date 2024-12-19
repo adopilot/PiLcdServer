@@ -12,9 +12,9 @@
     public class PisiModelRaw
     {
 
-        public string AdresaUredjajaHex { get; set; }
-        public string PrviRed { get; set; }
-        public string DrugiRed { get; set; }
+        public int IntAdresaUređaja { get; set; }
+        public List<string> Redovi { get; set; } = new List<string>();
+        public bool ClearBeforeWrite { get; set; }
 
     }
 
