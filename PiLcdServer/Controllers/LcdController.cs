@@ -18,14 +18,14 @@ namespace PiLcdServer.Controllers
         [HttpGet("AdreseIc2Uredjaja")]
         public ActionResult AdreseIc2Uredjaja() {
             var odgovor = _lcdServis.BusQuery();
-            return StatusCode(odgovor?.StatusCode ?? 500, odgovor?.Msg ?? "Interni sex");
+            return StatusCode(odgovor?.StatusCode ?? 500, odgovor?.Msg ?? "Interna greška");
         
         }
         [HttpGet("UgasiDisplay")]
-        public ActionResult UgasiDisplay(int intAdresaUredjaja)
+        public ActionResult UgasiDisplay(int adresaUredjaja)
         {
-            var odgovor = _lcdServis.UgasiBacklgiht(intAdresaUredjaja);
-            return StatusCode(odgovor?.StatusCode ?? 500, odgovor?.Msg ?? "Interni sex");
+            var odgovor = _lcdServis.UgasiBacklgiht(adresaUredjaja);
+            return StatusCode(odgovor?.StatusCode ?? 500, odgovor?.Msg ?? "Interna greška");
 
         }
 
@@ -38,13 +38,22 @@ namespace PiLcdServer.Controllers
             }
             var odgovor = _lcdServis.PisiNaDisplay(model);
 
-            return StatusCode(odgovor?.StatusCode??500,odgovor?.Msg??"interni sex");
+            return StatusCode(odgovor?.StatusCode??500,odgovor?.Msg?? "interna greška");
 
             
         }
-        
+        [HttpGet("BusQuery")]
+        public ActionResult BusQuery()
+        {
+            var a = _lcdServis.BusQuery();
+            return StatusCode(a?.StatusCode ?? 500, a?.Msg ?? "Interna greška");
+        }
+
         [HttpGet("GetDisplayConfigs")]
         public ActionResult<List<DisplayConfig>> GetDisplayConfigs() =>_lcdServis.GetDisplayConfigs();
-        
+
+        [HttpGet("GetDisplayConfig")]
+        public ActionResult<DisplayConfig> GetDisplayConfig([FromQuery]int adresaUredjaja) => _lcdServis._dajMiDisplayConfig(adresaUredjaja);
     }
 }
+

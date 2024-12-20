@@ -89,19 +89,26 @@ namespace PiLcdServer.Servisi
                 }
             }
         }
-        private DisplayConfig _dajMiDisplayConfig (int intAdresaDisplaya)
+        public DisplayConfig _dajMiDisplayConfig(int intAdresaDisplaya)
         {
-            DisplayConfig? displayConfig = _displays?.Where(f => f.IntAdressaIc2Displaya == intAdresaDisplaya)?.FirstOrDefault() ?? null;
-            if (displayConfig == null || displayConfig.ErrorState) {
-                var a = BusQuery();
-                if (a?.Valid ?? false)
-                    return new DisplayConfig() { ErrorMsg = $"Nismo našli uređaj sa int adresom {intAdresaDisplaya} nakačen na ploču", ErrorState = true,  IntAdressaIc2Displaya = intAdresaDisplaya };
+
+            lock (_lock)
+            {
+                DisplayConfig? displayConfig = _displays?.Where(f => f.IntAdressaIc2Displaya == intAdresaDisplaya)?.FirstOrDefault() ?? null;
+                if (displayConfig == null || displayConfig.ErrorState)
+                {
+                    var a = BusQuery();
+                    displayConfig = _displays?.Where(f => f.IntAdressaIc2Displaya == intAdresaDisplaya)?.FirstOrDefault() ?? null;
+                    if (displayConfig == null)
+                    {
+                        return new DisplayConfig() { ErrorMsg = $"Nismo našli uređaj sa int adresom {intAdresaDisplaya} nakačen na ploču sa greškom {a?.Msg ?? "Interni sex"}", ErrorState = true, IntAdressaIc2Displaya = intAdresaDisplaya };
+                    }
+
+
+                }
+                //displayConfig = _displays?.Where(f => f.IntAdressaIc2Displaya == intAdresaDisplaya)?.FirstOrDefault();
+                return displayConfig;
             }
-            displayConfig = _displays?.Where(f => f.IntAdressaIc2Displaya == intAdresaDisplaya)?.FirstOrDefault();
-            if (displayConfig == null) {
-                return new DisplayConfig() { ErrorMsg = $"Nismo našli uređaj sa int adresom {intAdresaDisplaya} nakačen na ploču", ErrorState = true, IntAdressaIc2Displaya = intAdresaDisplaya };
-            }
-            return displayConfig;
         }
         public PocoResponse UgasiBacklgiht(int adresaDisplaya)
         {
@@ -204,5 +211,7 @@ namespace PiLcdServer.Servisi
                 }
             }
         }
+
+      
     }
 }
